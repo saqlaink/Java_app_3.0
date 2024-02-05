@@ -77,7 +77,7 @@ pipeline{
          when { expression {  params.action == 'create' } }
             steps{
                script{
-                  sh """echo "Jfrog Artifactory Upload XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" """
+                  sh """ ls -lart"""
                }
             }
         }
