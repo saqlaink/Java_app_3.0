@@ -78,7 +78,7 @@ pipeline{
             steps{
                script{
                   dir('target') {
-                    sh "ls"
+                    sh "curl -X PUT -u admin:Infy@2028 -T kubernetes-configmap-reload-0.0.1-SNAPSHOT.jar http://18.140.138.193:8082/artifactory/example-repo-local/"
                 }
                }
             }
