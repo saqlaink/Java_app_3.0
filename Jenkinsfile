@@ -77,7 +77,9 @@ pipeline{
          when { expression {  params.action == 'create' } }
             steps{
                script{
-                  sh """ ls -lart"""
+                  dir('target') {
+                    sh "ls"
+                }
                }
             }
         }
