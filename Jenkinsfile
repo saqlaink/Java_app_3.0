@@ -77,9 +77,20 @@ pipeline{
          when { expression {  params.action == 'create' } }
             steps{
                script{
-                  dir('target') {
-                    sh "curl -X PUT -u admin:Admin123 -T kubernetes-configmap-reload-0.0.1-SNAPSHOT.jar http://54.254.226.176:8082/artifactory/example-repo-local/"
-                }
+                //   dir('target') {
+                //     sh "curl -X PUT -u admin:Admin123 -T kubernetes-configmap-reload-0.0.1-SNAPSHOT.jar http://54.254.226.176:8082/artifactory/example-repo-local/"
+                // }
+                    echo "Attemping to push artifactory to JFROG"
+                    withCredentials([usernamePassword(
+                        credentialsId: 'jfrog', 
+                        passwordVariable: 'JFROG_PASSWORD', usernameVariable: 'JFROG_USERNAME')]) {
+                        echo "Username: $JFROG_USERNAME"
+                        echo "Password: $JFROG_PASSWORD"
+
+                        def curlCommand = "curl -u '${JFROG_USERNAME}:${JFROG_PASSWORD}' -T target/*.jar ${params.ArtifactoryURL}/artifactory/example-repo-local"
+                        echo "Executing curl" 
+                        sh curlCommand
+                    }
                }
             }
         }
